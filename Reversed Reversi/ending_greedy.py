@@ -11,7 +11,7 @@ random.seed(0)
 infinity = math.inf
 chess_piece_points = -10
 search_layers = 5
-last_places = 12
+last_places = 10
 
 point_weight = np.array([
     [500, -25, 10, 5, 5, 10, -25, 500],
@@ -44,6 +44,7 @@ class AI(object):
 
     def go(self, chessboard):
         self.candidate_list.clear()
+        chessboard = np.array(chessboard)
         next_positions = self.possible_positions(chessboard, self.color)
         highest_value = -infinity
         for position in next_positions:
@@ -111,29 +112,29 @@ class AI(object):
         return new_chessboard
 
     # 评估函数
-    def evaluate(self, chessboard, self_color) -> int:
+    def evaluate(self, chessboard) -> int:
         count = 0
         points = 0
         for i in range(self.chessboard_size):
             for j in range(self.chessboard_size):
-                if chessboard[i][j] == self_color:
+                if chessboard[i][j] == self.color:
                     count += 1
                     points += -point_weight[i][j]
         points += count * chess_piece_points
         return points
 
     # 只根据棋子数量估计
-    def evaluate_greedy(self, chessboard, self_color) -> int:
-        count = len(np.where(chessboard == self_color)[0])
+    def evaluate_greedy(self, chessboard) -> int:
+        count = len(np.where(chessboard == self.color)[0])
         return count * chess_piece_points
 
     def max_value(self, chessboard, depth, alpha, beta, enable_greedy):
         current_color = self.color
         if depth == 0:
             if enable_greedy:
-                return self.evaluate_greedy(chessboard, current_color)
+                return self.evaluate_greedy(chessboard)
             else:
-                return self.evaluate(chessboard, current_color)
+                return self.evaluate(chessboard)
         next_positions = self.possible_positions(chessboard, current_color)
         if len(next_positions) == 0:
             return self.min_value(chessboard, depth - 1, alpha, beta, enable_greedy)
@@ -150,9 +151,9 @@ class AI(object):
         current_color = self.opposite_color
         if depth == 0:
             if enable_greedy:
-                return self.evaluate_greedy(chessboard, current_color)
+                return self.evaluate_greedy(chessboard)
             else:
-                return self.evaluate(chessboard, current_color)
+                return self.evaluate(chessboard)
         next_positions = self.possible_positions(chessboard, current_color)
         if len(next_positions) == 0:
             return self.max_value(chessboard, depth - 1, alpha, beta, enable_greedy)
