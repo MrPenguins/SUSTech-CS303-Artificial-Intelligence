@@ -24,7 +24,7 @@ args = parser.parse_args()
 def train(model, train_loader, test_loader, optimizer, loss_fn):
     ###################### Begin #########################
     # You can write your training code here to optimize the reference model (LeNet5)
-    for epoch in range(args.epoch_start, 1000):
+    for epoch in range(args.epoch_start, args.epoch_end):
         print(f"Epoch {epoch}\n-------------------------------")
         size = len(train_loader.dataset)
         model.train()
@@ -49,7 +49,7 @@ def train(model, train_loader, test_loader, optimizer, loss_fn):
         print("Accuracy: %.3f}" % accuracy)
 
         torch.save(model.state_dict(), args.checkpoint_dir + f'epoch-{epoch}.pth')
-        if accuracy > 0.980:
+        if accuracy > 0.983:
             break
 
     ######################  End  #########################
@@ -79,7 +79,7 @@ if __name__ == '__main__':
     if args.last_checkpoint is not None:
         model.load_state_dict(torch.load(args.last_checkpoint, map_location=args.device))
 
-    optimizer = torch.optim.SGD(model.parameters(), lr=0.005)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     loss_fn = nn.CrossEntropyLoss()
 
     if not os.path.exists(args.checkpoint_dir):
