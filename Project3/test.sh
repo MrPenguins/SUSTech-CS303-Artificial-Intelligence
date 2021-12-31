@@ -1,0 +1,1 @@
+python test_yournet.py --best-checkpoint ./checkpoints/YourNet/epoch-38.pth

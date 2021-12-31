@@ -1,0 +1,4 @@
+python train_lenet5.py --checkpoint-dir ./checkpoints/LeNet5/  --epoch-end 10
+python test_lenet5.py  --best-checkpoint ./checkpoints/LeNet5/epoch-6.pth 
+python train_yournet.py --checkpoint-dir ./checkpoints/YourNet/  --epoch-end 10
+python test_yournet.py  --best-checkpoint ./checkpoints/YourNet/epoch-9.pth 
