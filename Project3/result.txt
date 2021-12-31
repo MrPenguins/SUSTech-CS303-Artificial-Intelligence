@@ -1,11 +1,22 @@
 # Installation
 
 # The accuracy, infer time, MACs and params of reference model (LeNet-5)
-
+----------------------------------------------------------------
+| Model Name | Accuracy | Infer Time(ms) | Params(M) | MACs(M) |
+----------------------------------------------------------------
+|    LeNet-5 |    0.980 |          0.167 |     0.206 |   0.060 |
+----------------------------------------------------------------
 # The accuracy, infer time, MACs and params of your model (YourNet)
-
+-------------------------------------------------------------
+|         | Accuracy | Infer Time(ms) | MACs(M) | Params(M) |
+-------------------------------------------------------------
+| YourNet |    0.983 |          0.160 |   0.049 |     0.002 |
+-------------------------------------------------------------
+|   Score |    5.000 |         15.319 |   6.343 |    51.004 |
+-------------------------------------------------------------
+Your score is:  137.6648938424655
 # The command to run “./train_yournet.py”
-
+python train_yournet.py --checkpoint-dir ./checkpoints/YourNet/  --epoch-end 40
 # The command to run “./test_yournet.py”
-
+python test_yournet.py  --best-checkpoint ./checkpoints/YourNet/epoch-38.pth 
 # Others
