@@ -1,0 +1,11 @@
+# Installation
+
+# The accuracy, infer time, MACs and params of reference model (LeNet-5)
+
+# The accuracy, infer time, MACs and params of your model (YourNet)
+
+# The command to run “./train_yournet.py”
+
+# The command to run “./test_yournet.py”
+
+# Others
